@@ -6,14 +6,16 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "now-build": "echo 'No build'",
-    "now-start": "node express.js"
+    "now-start": "node express.js",
+    "start": "node express.js"
   },
   "author": "Kyle Pfromer",
   "license": "ISC",
   "dependencies": {
     "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "firebase-functions": "^2.0.5",
     "moment": "^2.22.2",
-    "puppeteer": "^1.7.0",
-    "express": "^4.16.3"
+    "puppeteer": "^1.7.0"
   }
 }
