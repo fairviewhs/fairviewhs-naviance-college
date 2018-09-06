@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "now-build": "echo 'No build'",
-    "now-start": "node app.js"
+    "now-start": "node express.js"
   },
   "author": "Kyle Pfromer",
   "license": "ISC",
