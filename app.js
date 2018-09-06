@@ -85,14 +85,14 @@ async function getData() {
     weeks[week - firstCollegeWeek] = days;
   }
 
-  console.log(collegeWithDatetime);
+  // console.log(collegeWithDatetime);
 
   collegeWithDatetime.forEach(college => {
     const {
       datetime
     } = college;
     const dayMoment = datetime.format(dayFormat);
-    console.log(dayMoment);
+    // console.log(dayMoment);
     weeks.forEach((week, weekIndex) => {
       week.forEach((day, dayIndex) => {
         if (day.day === dayMoment) {
