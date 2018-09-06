@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+  - "node"
+cache:
+  directories:
+    - "node_modules"
+script: npm run build
+before_deploy: npm install now --no-save # Install Now CLI on Travis
+deploy:
+  - provider: script
+    script:
+      - now --token $NOW_TOKEN --no-verify && now alias --token $NOW_TOKEN --no-verify
+      - now rm --token $NOW_TOKEN --safe # Removes old deployments
+    skip_cleanup: true
+    on:
+      master: true

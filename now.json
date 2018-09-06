@@ -1,0 +1,9 @@
+{
+  "name": "fairviewhs-naviance-college",
+  "alias": "fairviewhs-naviance-college",
+  "public": false,
+  "env": {
+    "NODE_ENV": "production",
+    "PORT": 8080
+  }
+}

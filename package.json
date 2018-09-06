@@ -1,0 +1,19 @@
+{
+  "name": "fhs-nav",
+  "version": "1.0.0",
+  "description": "For college visits",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "now-build": "echo 'No build'",
+    "now-start": "node app.js"
+  },
+  "author": "Kyle Pfromer",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "moment": "^2.22.2",
+    "puppeteer": "^1.7.0",
+    "express": "^4.16.3"
+  }
+}

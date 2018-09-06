@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link href="/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon">
+  <style type="text/css">
+    html {
+      background: none;
+    }
+
+    body {
+      color: black;
+      background-color: white;
+      margin: 9px;
+      line-height: 1.5;
+      font-family: Palatino, "Palatino Linotype", "Hoefler Text", Times, "Times New Roman", "Droid Sans", serif;
+    }
+
+    td {
+      border: 1px solid black;
+      width: 14.285%;
+      vertical-align: top;
+      font-size: .65em;
+      font-family: Helvetica, Arial, sans-serif;
+      padding: 4px 10px 4px 5px;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 24px;
+      color: #444;
+      margin-top: 0;
+    }
+
+    p {
+      text-align: center;
+      margin: 0 0 0 0.5em;
+      font-size: 16px;
+    }
+
+    tr.underline td {
+      border-bottom: 3px solid black;
+    }
+
+    .header {
+      font-size: 18px;
+    }
+
+    span.underline {
+      text-decoration: underline;
+    }
+
+    table.visit {
+      margin: 0;
+    }
+
+    table.visit td {
+      border: none;
+      padding: 0;
+      font-size: 100%;
+      font-family: "Arial Narrow";
+    }
+
+    #notice {
+      font-weight: bold;
+    }
+
+    table {
+      page-break-inside: auto;
+      border-spacing: 0;
+    }
+
+    tr {
+      page-break-inside: avoid;
+      page-break-after: auto;
+    }
+
+    thead {
+      display: table-header-group;
+    }
+
+    tfoot {
+      display: table-footer-group;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>College Rep Visits</h2>
+  <p>
+    Please use <a href="https://student.naviance.com/colleges/visits">Naviance</a> to view college visits as this
+    calendar is not updating properly.
+  </p>
+  <p id="notice">To be excused from class, <span class="underline">juniors and seniors</span> must get teacher
+    permission before attending and sign the attendance sheet at each college presentation.</p>
+  <p id="notice"><span class="underline">Freshmen and sophomores</span> can attend college rep visits during their free
+    periods.</p>
+  <p>Virtual/Interactive college rep contact at <a href="http://www.collegeweeklive.com/">collegeweeklive.com</a>.</p>
+  <p id="notice">More college rep visits are scheduled each day. Check the College/Career Center website for the latest
+    updates.</p>
+  <p>Location is the College/Career Center unless specified. &mdash; Last updated <%= updated %></p>
+  <table>
+    <% weeks.forEach(week => { %>
+      <tr class="header">
+        <% week.forEach(day => { %>
+          <td><b><%= day.day %></b></td>
+        <% }) %>
+      </tr>
+      <tr class="underline">
+        <% week.forEach(day => { %>
+          <td>
+            <% day.visits.forEach(visit => { %>
+              <table class="visit">
+                <tr>
+                  <td style="width: 5%; padding-right: 7px;"><%= visit.time %></td>
+                  <td style="width: 90%;"><%= visit.name %></td>
+                </tr>
+              </table>
+            <% }) %>
+            <% if (day.visits.length === 0) { %>
+              None
+            <% } %>
+          </td>
+        <% }) %>
+      </tr>
+    <% }) %>
+  </table>
+</body>
+
+</html>
