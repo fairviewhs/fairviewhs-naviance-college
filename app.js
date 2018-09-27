@@ -6,17 +6,21 @@ const { promisify } = require('util');
 const path = require('path');
 
 const selectors = {
-  item: '._1NBch8SO',
-  month: '._2uPIj-wb',
-  dayOfMonth: '._3al4E82b',
-  time: '.d6Vv5DEm div:nth-child(3)',
-  name: '._2w0UqWer'
+  item: '._1m-2ED6C',
+  // month: '._2uPIj-wb',
+  // dayOfMonth: '._3al4E82b',
+  // time: '.d6Vv5DEm div:nth-child(3)',
+  name: '._1m-2ED6C',
+
+  time: 'time:first-of-type'
 };
+
+const showMore = '._1pWqBljl';
 
 const dayFormat = 'ddd, MMM Do';
 
 async function getData() {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({args: ['--no-sandbox'], headless: false});
   const page = await browser.newPage();
   await page.goto('https://student.naviance.com/fairview/guest');
   await page.waitFor('#password');
@@ -27,34 +31,54 @@ async function getData() {
   await page.waitForNavigation({
     waitUntil: 'networkidle0'
   });
-  await page.goto('https://student.naviance.com/colleges/visits');
-  await page.waitFor(selectors.item);
+  await page.goto('https://student.naviance.com/main');
+  // await page.waitFor(selectors.item);
+  await page.waitFor(showMore);
+  await page.click(showMore);
 
   const collegeData = await page.evaluate(selectors => {
     return [...document.querySelectorAll(selectors.item)].map(college => {
-      return Object.keys(selectors)
-        .filter(selector => selector !== 'item')
-        .reduce((prevObject, currSelect) => {
-          return {
-            ...prevObject,
-            [currSelect]: college.querySelector(selectors[currSelect]).innerText
-          }
-        }, {});
+      const text = college.innerText;
+      return {
+        time: college.querySelector(selectors.time).getAttribute('datetime'),
+        name: text.split('will be visiting your school')[0]
+      }
     })
   }, selectors);
+
+  // const collegeData = await page.evaluate(selectors => {
+  //   return [...document.querySelectorAll(selectors.item)].map(college => {
+  //     return Object.keys(selectors)
+  //       .filter(selector => selector !== 'item')
+  //       .reduce((prevObject, currSelect) => {
+  //         return {
+  //           ...prevObject,
+  //           [currSelect]: college.querySelector(selectors[currSelect]).innerText
+  //         }
+  //       }, {});
+  //   })
+  // }, selectors);
 
   await browser.close();
 
   const collegeWithDatetime = collegeData.map(college => {
+    // const {
+    //   month,
+    //   dayOfMonth,
+    //   time,
+    //   name
+    // } = college;
+    // return {
+    //   name,
+    //   datetime: moment(`${month} ${dayOfMonth} ${time}`, 'MMMM DD hh:mma')
+    // }
     const {
-      month,
-      dayOfMonth,
       time,
       name
     } = college;
     return {
       name,
-      datetime: moment(`${month} ${dayOfMonth} ${time}`, 'MMMM DD hh:mma')
+      datetime: moment(time, 'YYYY-MM-DD HH:mm:ss')
     }
   });
 
