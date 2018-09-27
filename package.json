@@ -4,7 +4,6 @@
   "description": "For college visits",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "now-build": "echo 'No build'",
     "now-start": "node express.js",
     "start": "node express.js"
